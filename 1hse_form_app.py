@@ -13,7 +13,7 @@ form_template = """
 <body>
     <h2>Fiche de Contrôle HSE</h2>
     <form action="/generate_pdf" method="post">
-        <label>Date de l’inspection:</label><br>
+        <label>Date de l'inspection:</label><br>
         <input type="date" name="date_inspection"><br><br>
         
         <label>Lieu / Site:</label><br>
@@ -31,7 +31,7 @@ form_template = """
         <label>Commentaires généraux:</label><br>
         <textarea name="commentaires" rows="5" cols="40"></textarea><br><br>
         
-        <label>Signature de l’inspecteur:</label><br>
+        <label>Signature de l'inspecteur:</label><br>
         <input type="text" name="signature_inspecteur"><br><br>
         
         <label>Signature du responsable de site:</label><br>
@@ -56,13 +56,13 @@ def generate_pdf():
     pdf.set_font("Arial", size=12)
 
     fields = [
-        ("Date de l’inspection", data.get('date_inspection', '')),
+        ("Date de l'inspection", data.get('date_inspection', '')),
         ("Lieu / Site", data.get('lieu', '')),
         ("Installation", data.get('installation', '')),
         ("Inspecteur(s)", data.get('inspecteurs', '')),
         ("Département concerné", data.get('departement', '')),
         ("Commentaires généraux", data.get('commentaires', '')),
-        ("Signature de l’inspecteur", data.get('signature_inspecteur', '')),
+        ("Signature de l'inspecteur", data.get('signature_inspecteur', '')),
         ("Signature du responsable de site", data.get('signature_responsable', '')),
     ]
 
