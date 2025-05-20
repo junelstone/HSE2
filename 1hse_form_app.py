@@ -1,6 +1,7 @@
 from flask import Flask, render_template_string, request, send_file
 from fpdf import FPDF
 import io
+import base64
 
 app = Flask(__name__)
 
