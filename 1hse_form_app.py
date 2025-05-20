@@ -13,7 +13,7 @@ form_template = """
 <body>
     <h2>Fiche de Contrôle HSE</h2>
     <form action="/generate_pdf" method="post">
-        <label>Date de l'inspection:</label><br>
+        <label for="date_inspection">Date de l'inspection:</label><br>
         <input type="date" name="date_inspection"><br><br>
         
         <label>Lieu / Site:</label><br>
