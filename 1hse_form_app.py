@@ -9,33 +9,59 @@ form_template = """
 <html>
 <head>
     <title>Fiche de Contrôle HSE</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input[type="text"], input[type="date"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        textarea { height: 100px; resize: vertical; }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover { background-color: #45a049; }
+        h2 { color: #333; text-align: center; }
+    </style>
 </head>
 <body>
     <h2>Fiche de Contrôle HSE</h2>
     <form action="/generate_pdf" method="post">
-        <label for="date_inspection">Date de l'inspection:</label><br>
-        <input type="date" name="date_inspection"><br><br>
+        <label for="date_inspection">Date de l'inspection:</label>
+        <input type="date" id="date_inspection" name="date_inspection" required>
         
-        <label>Lieu / Site:</label><br>
-        <input type="text" name="lieu"><br><br>
+        <label for="lieu">Lieu / Site:</label>
+        <input type="text" id="lieu" name="lieu" required>
         
-        <label>Installation:</label><br>
-        <input type="text" name="installation"><br><br>
+        <label for="installation">Installation:</label>
+        <input type="text" id="installation" name="installation" required>
         
-        <label>Inspecteur(s):</label><br>
-        <input type="text" name="inspecteurs"><br><br>
+        <label for="inspecteurs">Inspecteur(s):</label>
+        <input type="text" id="inspecteurs" name="inspecteurs" required>
         
-        <label>Département concerné:</label><br>
-        <input type="text" name="departement"><br><br>
+        <label for="departement">Département concerné:</label>
+        <input type="text" id="departement" name="departement" required>
         
-        <label>Commentaires généraux:</label><br>
-        <textarea name="commentaires" rows="5" cols="40"></textarea><br><br>
+        <label for="commentaires">Commentaires généraux:</label>
+        <textarea id="commentaires" name="commentaires" required></textarea>
         
-        <label>Signature de l'inspecteur:</label><br>
-        <input type="text" name="signature_inspecteur"><br><br>
+        <label for="signature_inspecteur">Signature de l'inspecteur:</label>
+        <input type="text" id="signature_inspecteur" name="signature_inspecteur" required>
         
-        <label>Signature du responsable de site:</label><br>
-        <input type="text" name="signature_responsable"><br><br>
+        <label for="signature_responsable">Signature du responsable de site:</label>
+        <input type="text" id="signature_responsable" name="signature_responsable" required>
         
         <input type="submit" value="Générer le PDF">
     </form>
@@ -44,37 +70,54 @@ form_template = """
 """
 
 @app.route('/')
-def form():
+def show_form():
     return render_template_string(form_template)
 
 @app.route('/generate_pdf', methods=['POST'])
 def generate_pdf():
-    data = request.form
+    try:
+        data = request.form
 
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
 
-    fields = [
-        ("Date de l'inspection", data.get('date_inspection', '')),
-        ("Lieu / Site", data.get('lieu', '')),
-        ("Installation", data.get('installation', '')),
-        ("Inspecteur(s)", data.get('inspecteurs', '')),
-        ("Département concerné", data.get('departement', '')),
-        ("Commentaires généraux", data.get('commentaires', '')),
-        ("Signature de l'inspecteur", data.get('signature_inspecteur', '')),
-        ("Signature du responsable de site", data.get('signature_responsable', '')),
-    ]
+        pdf.set_font("Arial", 'B', 16)
+        pdf.cell(0, 10, "Fiche de Contrôle HSE", 0, 1, 'C')
+        pdf.ln(10)
+        pdf.set_font("Arial", size=12)
 
-    for label, value in fields:
-        pdf.multi_cell(0, 10, f"{label}: {value}")
+        fields = [
+            ("Date de l'inspection", data.get('date_inspection', 'N/A')),
+            ("Lieu/Site", data.get('lieu', 'N/A')),
+            ("Installation", data.get('installation', 'N/A')),
+            ("Inspecteur(s)", data.get('inspecteurs', 'N/A')),
+            ("Département concerné", data.get('departement', 'N/A')),
+            ("Commentaires généraux", data.get('commentaires', 'Aucun commentaire')),
+            ("Signature de l'inspecteur", data.get('signature_inspecteur', 'Non fournie')),
+            ("Signature du responsable", data.get('signature_responsable', 'Non fournie')),
+        ]
 
-    pdf_output = io.BytesIO()
-    pdf_bytes = pdf.output(dest='S').encode('latin1')
-    pdf_output.write(pdf_bytes)
-    pdf_output.seek(0)
+        for label, value in fields:
+            pdf.set_font("Arial", 'B', 12)
+            pdf.cell(40, 10, label + ":", 0, 0)
+            pdf.set_font("Arial", '', 12)
+            pdf.multi_cell(0, 10, value)
+            pdf.ln(5)
 
-    return send_file(pdf_output, as_attachment=True, download_name="fiche_HSE.pdf", mimetype='application/pdf')
+        pdf_output = io.BytesIO()
+        pdf_output.write(pdf.output(dest='S').encode('latin1'))
+        pdf_output.seek(0)
+
+        return send_file(
+            pdf_output,
+            as_attachment=True,
+        download_name=f"controle_hse_{data.get('date_inspection', '')}.pdf",
+            mimetype='application/pdf'
+        )
+
+    except Exception as e:
+        return f"Une erreur est survenue: {str(e)}", 500
 
 if name == '__main__':
     app.run(debug=True)
