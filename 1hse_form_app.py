@@ -1,10 +1,13 @@
-from flask import Flask, render_template_string, request, send_file, Response
+# First install required packages if you haven't:
+# pip install flask fpdf
+
+from flask import Flask, render_template_string, request, Response
 from fpdf import FPDF
 import io
-import base64
 
 app = Flask(__name__)
 
+# HTML template remains the same as in previous working version
 form_template = """
 <!DOCTYPE html>
 <html>
@@ -23,26 +26,23 @@ form_template = """
             border-radius: 4px;
         }
         textarea { height: 100px; resize: vertical; }
-        .button-group { display: flex; gap: 10px; margin-top: 20px; }
-        input[type="submit"], button {
-            flex: 1;
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
             padding: 12px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin-top: 20px;
             font-size: 16px;
         }
-        #generate-pdf { background-color: #4CAF50; color: white; }
-        #generate-pdf:hover { background-color: #45a049; }
-        #preview-pdf { background-color: #2196F3; color: white; }
-        #preview-pdf:hover { background-color: #0b7dda; }
+        input[type="submit"]:hover { background-color: #45a049; }
         h2 { color: #333; text-align: center; }
-        iframe { width: 100%; height: 500px; border: 1px solid #ddd; margin-top: 20px; }
     </style>
 </head>
 <body>
     <h2>Fiche de Contrôle HSE</h2>
-    <form id="hse-form">
+    <form action="/generate_pdf" method="post">
         <label for="date_inspection">Date de l'inspection:</label>
         <input type="date" id="date_inspection" name="date_inspection" required>
         
@@ -67,132 +67,61 @@ form_template = """
         <label for="signature_responsable">Signature du responsable de site:</label>
         <input type="text" id="signature_responsable" name="signature_responsable" required>
         
-        <div class="button-group">
-            <input type="submit" id="generate-pdf" value="Générer le PDF">
-            <button type="button" id="preview-pdf">Aperçu PDF</button>
-        </div>
+        <input type="submit" value="Générer le PDF">
     </form>
-    
-    <div id="pdf-preview-container" style="display: none;">
-        <h3>Aperçu du PDF</h3>
-        <iframe id="pdf-preview"></iframe>
-    </div>
-
-    <script>
-        document.getElementById('preview-pdf').addEventListener('click', async function() {
-            const form = document.getElementById('hse-form');
-            const formData = new FormData(form);
-            
-            try {
-                const response = await fetch('/preview_pdf', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (response.ok) {
-                    const blob = await response.blob();
-                    const url = URL.createObjectURL(blob);
-                    
-                    document.getElementById('pdf-preview').src = url;
-                    document.getElementById('pdf-preview-container').style.display = 'block';
-                } else {
-                    alert('Erreur lors de la génération de l\'aperçu');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Une erreur est survenue');
-            }
-        });
-
-        document.getElementById('hse-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            
-            try {
-                const response = await fetch('/generate_pdf', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (response.ok) {
-                    const blob = await response.blob();
-                    const url = URL.createObjectURL(blob);
-                    
-                    // Create temporary link to trigger download
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'fiche_controle_HSE.pdf';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                } else {
-                    alert('Erreur lors de la génération du PDF');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Une erreur est survenue');
-            }
-        });
-    </script>
 </body>
 </html>
 """
-
-def generate_pdf_content(data):
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-
-    pdf.set_font("Arial", 'B', 16)
-    pdf.cell(0, 10, "Fiche de Contrôle HSE", 0, 1, 'C')
-    pdf.ln(10)
-    pdf.set_font("Arial", size=12)
-
-    fields = [
-        ("Date de l'inspection", data.get('date_inspection', 'N/A')),
-        ("Lieu/Site", data.get('lieu', 'N/A')),
-        ("Installation", data.get('installation', 'N/A')),
-        ("Inspecteur(s)", data.get('inspecteurs', 'N/A')),
-        ("Département concerné", data.get('departement', 'N/A')),
-        ("Commentaires généraux", data.get('commentaires', 'Aucun commentaire')),
-        ("Signature de l'inspecteur", data.get('signature_inspecteur', 'Non fournie')),
-        ("Signature du responsable", data.get('signature_responsable', 'Non fournie')),
-    ]
-
-    for label, value in fields:
-        pdf.set_font("Arial", 'B', 12)
-        pdf.cell(40, 10, label + ":", 0, 0)
-        pdf.set_font("Arial", '', 12)
-        pdf.multi_cell(0, 10, value)
-        pdf.ln(5)
-
-    return pdf.output(dest='S').encode('latin1')
 
 @app.route('/')
 def show_form():
     return render_template_string(form_template)
 
-@app.route('/preview_pdf', methods=['POST'])
-def preview_pdf():
-    try:
-        pdf_content = generate_pdf_content(request.form)
-        return Response(
-            pdf_content,
-            mimetype='application/pdf',
-            headers={'Content-Disposition': 'inline; filename=preview.pdf'}
-        )
-    except Exception as e:
-        return f"Une erreur est survenue: {str(e)}", 500
-
 @app.route('/generate_pdf', methods=['POST'])
 def generate_pdf():
     try:
-        pdf_content = generate_pdf_content(request.form)
+        data = request.form
+
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
+
+        # Add title
+        pdf.set_font("Arial", 'B', 16)
+        pdf.cell(0, 10, "Fiche de Contrôle HSE", 0, 1, 'C')
+        pdf.ln(10)
+        pdf.set_font("Arial", size=12)
+
+        # Add form data
+        fields = [
+            ("Date de l'inspection", data.get('date_inspection', 'N/A')),
+            ("Lieu/Site", data.get('lieu', 'N/A')),
+            ("Installation", data.get('installation', 'N/A')),
+            ("Inspecteur(s)", data.get('inspecteurs', 'N/A')),
+            ("Département concerné", data.get('departement', 'N/A')),
+            ("Commentaires généraux", data.get('commentaires', 'Aucun commentaire')),
+            ("Signature de l'inspecteur", data.get('signature_inspecteur', 'Non fournie')),
+            ("Signature du responsable", data.get('signature_responsable', 'Non fournie')),
+        ]
+
+        for label, value in fields:
+            pdf.set_font("Arial", 'B', 12)
+            pdf.cell(40, 10, label + ":", 0, 0)
+            pdf.set_font("Arial", '', 12)
+            pdf.multi_cell(0, 10, value)
+            pdf.ln(5)
+
+        # Generate PDF in memory
+        pdf_output = io.BytesIO()
+        pdf_output.write(pdf.output(dest='S').encode('latin1'))
+        pdf_output.seek(0)
+
         return Response(
-            pdf_content,
+            pdf_output.getvalue(),
             mimetype='application/pdf',
             headers={'Content-Disposition': 'attachment; filename=fiche_controle_HSE.pdf'}
         )
+
     except Exception as e:
         return f"Une erreur est survenue: {str(e)}", 500
 
