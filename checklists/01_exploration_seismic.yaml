@@ -1,0 +1,31 @@
+id: exploration_seismic
+order: 1
+name:
+  fr: Exploration et sismique
+  en: Exploration and seismic surveys
+sections:
+  - id: journey
+    title: {fr: Gestion des déplacements, en: Journey management}
+    items:
+      - {id: SEI-JM-01, fr: "Plan de déplacement approuvé (itinéraire, horaires, points de contact)", en: "Approved journey plan (route, times, check-in points)", ref: IOGP Report 365, criticality: major}
+      - {id: SEI-JM-02, fr: "Aptitude et temps de repos des chauffeurs respectés", en: "Driver fitness and rest hours respected", ref: IOGP Report 365, criticality: major}
+      - {id: SEI-JM-03, fr: "Véhicules équipés d'un système de suivi (IVMS) fonctionnel", en: "Vehicles fitted with working IVMS", ref: IOGP Report 365, criticality: minor}
+  - id: explosives
+    title: {fr: Explosifs, en: Explosives}
+    items:
+      - {id: SEI-EX-01, fr: "Dépôt d'explosifs autorisé, gardé et registre à jour", en: "Licensed, guarded explosives magazine with up-to-date register", ref: IOGP Report 577, criticality: critical}
+      - {id: SEI-EX-02, fr: "Transport et manipulation des explosifs par personnel habilité", en: "Explosives transported and handled by certified staff", ref: IOGP Report 577, criticality: critical}
+      - {id: SEI-EX-03, fr: "Distances de sécurité et procédure de raté de tir appliquées", en: "Safety distances and misfire procedure applied", ref: IOGP Report 577, criticality: critical}
+  - id: camp
+    title: {fr: Base vie et santé, en: Camp and health}
+    items:
+      - {id: SEI-CP-01, fr: "Eau potable contrôlée et hygiène alimentaire respectée", en: "Drinking water tested and food hygiene respected", ref: IFC EHS General 3.1, criticality: major}
+      - {id: SEI-CP-02, fr: "Prévention du paludisme et plan MEDEVAC en place", en: "Malaria prevention and MEDEVAC plan in place", ref: IOGP Report 343, criticality: major}
+      - {id: SEI-CP-03, fr: "Gestion de la fatigue (horaires de travail, rotations)", en: "Fatigue management (working hours, rotations)", ref: IOGP Report 626, criticality: minor}
+  - id: env_community
+    title: {fr: Environnement et communautés, en: Environment and communities}
+    items:
+      - {id: SEI-EC-01, fr: "Défrichement des layons limité à l'emprise autorisée", en: "Line clearing kept within permitted width", ref: IFC EHS Onshore O&G, criticality: major}
+      - {id: SEI-EC-02, fr: "Observateurs de mammifères marins présents (sismique offshore)", en: "Marine mammal observers on duty (offshore seismic)", ref: JNCC guidelines / IOGP Report 451, criticality: major}
+      - {id: SEI-EC-03, fr: "Accord des propriétaires et mécanisme de plaintes en place", en: "Landowner consent and grievance mechanism in place", ref: IFC Performance Standard 1, criticality: major}
+      - {id: SEI-EC-04, fr: "Remise en état des sites après passage", en: "Sites restored after survey", ref: ISO 14001 8.1, criticality: minor}

@@ -1,0 +1,24 @@
+id: maintenance_shutdown
+order: 7
+name:
+  fr: Maintenance, arrêts et grands arrêts
+  en: Maintenance, shutdowns and turnarounds
+sections:
+  - id: isolation
+    title: {fr: Isolation et espaces confinés, en: Isolation and confined spaces}
+    items:
+      - {id: MNT-IS-01, fr: "Consignation vérifiée et registre des joints pleins à jour", en: "Isolation verified and blind register current", ref: OSHA 1910.147 / HSG253, criticality: critical}
+      - {id: MNT-IS-02, fr: "Test gaz, surveillant et plan de sauvetage pour espace confiné", en: "Gas test, standby person and rescue plan for confined space", ref: OSHA 1910.146, criticality: critical}
+  - id: lifting_height
+    title: {fr: Levage et travail en hauteur, en: Lifting and work at height}
+    items:
+      - {id: MNT-LH-01, fr: "Plan de levage approuvé pour les levages critiques", en: "Lift plan approved for critical lifts", ref: IOGP Report 376, criticality: critical}
+      - {id: MNT-LH-02, fr: "Grues et accessoires de levage certifiés", en: "Cranes and rigging certified", ref: API RP 2D / ASME B30, criticality: critical}
+      - {id: MNT-LH-03, fr: "Élingueur / signaleur compétent désigné", en: "Competent rigger / banksman assigned", ref: IOGP Report 376, criticality: major}
+      - {id: MNT-LH-04, fr: "Échafaudages inspectés et étiquetés", en: "Scaffolds inspected and tagged", ref: OSHA 1926.451 / EN 12811, criticality: critical}
+  - id: contractors_restart
+    title: {fr: Sous-traitants et redémarrage, en: Contractors and restart}
+    items:
+      - {id: MNT-CR-01, fr: "Sous-traitants accueillis, compétents et encadrés", en: "Contractors inducted, competent and supervised", ref: IOGP Report 423, criticality: major}
+      - {id: MNT-CR-02, fr: "Revue de sécurité avant redémarrage (PSSR) réalisée", en: "Pre-start-up safety review (PSSR) completed", ref: OSHA 1910.119(i), criticality: critical}
+      - {id: MNT-CR-03, fr: "Gestion des déchets d'arrêt (boues, catalyseurs) organisée", en: "Turnaround waste (sludge, catalyst) managed", ref: ISO 14001 8.1, criticality: minor}

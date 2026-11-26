@@ -1,0 +1,29 @@
+id: completion
+order: 3
+name:
+  fr: Complétion, essais et interventions sur puits
+  en: Well completion, testing and intervention
+sections:
+  - id: pressure
+    title: {fr: Équipements haute pression temporaires, en: Temporary high-pressure equipment}
+    items:
+      - {id: CMP-HP-01, fr: "Lignes temporaires et équipements d'essai testés en pression", en: "Temporary lines and well test equipment pressure tested", ref: API RP 14E / API Spec 6A, criticality: critical}
+      - {id: CMP-HP-02, fr: "Zones d'exclusion balisées pendant les essais", en: "Exclusion zones marked during testing", ref: IOGP Report 476, criticality: critical}
+      - {id: CMP-HP-03, fr: "Lignes haute pression arrimées (élingues de retenue)", en: "High-pressure lines restrained (whip checks)", ref: API RP 7HU1, criticality: major}
+  - id: barriers
+    title: {fr: Barrières et intervention, en: Barriers and intervention}
+    items:
+      - {id: CMP-BR-01, fr: "Deux barrières de puits vérifiées avant intervention", en: "Two well barriers verified before intervention", ref: IOGP Report 476 / NORSOK D-010, criticality: critical}
+      - {id: CMP-BR-02, fr: "Équipements de contrôle de pression (wireline, coiled tubing) certifiés", en: "Pressure control equipment (wireline, coiled tubing) certified", ref: API RP 16ST / API 6A, criticality: critical}
+  - id: perforating
+    title: {fr: Perforation, en: Perforating}
+    items:
+      - {id: CMP-PF-01, fr: "Silence radio respecté pendant la manipulation des charges", en: "Radio silence kept while handling charges", ref: API RP 67, criticality: critical}
+      - {id: CMP-PF-02, fr: "Canons de perforation armés par personnel habilité uniquement", en: "Perforating guns armed only by certified staff", ref: API RP 67, criticality: critical}
+  - id: flaring_frac
+    title: {fr: Torchage d'essai et fracturation, en: Test flaring and fracturing}
+    items:
+      - {id: CMP-FL-01, fr: "Zone de rayonnement de la torche définie et respectée", en: "Flare radiation zone defined and respected", ref: API Std 521, criticality: major}
+      - {id: CMP-FL-02, fr: "Contrôle des fumées noires et de l'entraînement de liquide", en: "Black smoke and liquid carry-over controlled", ref: IFC EHS Onshore O&G, criticality: major}
+      - {id: CMP-FL-03, fr: "Eaux de reflux (flowback) stockées dans des bacs étanches", en: "Flowback water stored in sealed tanks", ref: API HF1 / HF2, criticality: major}
+      - {id: CMP-FL-04, fr: "Suivi de la sismicité induite (si fracturation)", en: "Induced seismicity monitored (if fracturing)", ref: API RP 100-1, criticality: minor}

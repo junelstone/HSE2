@@ -1,0 +1,25 @@
+id: processing
+order: 5
+name:
+  fr: Traitement et stockage
+  en: Processing and storage
+sections:
+  - id: hazard
+    title: {fr: Analyse des dangers, en: Hazard analysis}
+    items:
+      - {id: PRC-HZ-01, fr: "Étude HAZOP à jour et actions clôturées", en: "HAZOP current and actions closed", ref: OSHA 1910.119(e) / IEC 61882, criticality: critical}
+      - {id: PRC-HZ-02, fr: "Programme de suivi de la corrosion respecté", en: "Corrosion monitoring programme followed", ref: API 570 / API RP 571, criticality: major}
+  - id: tanks
+    title: {fr: Parc de stockage, en: Tank farm}
+    items:
+      - {id: PRC-TK-01, fr: "Cuvettes de rétention étanches et vidées de l'eau de pluie", en: "Bunds intact and drained of rainwater", ref: API Std 2610, criticality: major}
+      - {id: PRC-TK-02, fr: "Protection anti-débordement des bacs testée", en: "Tank overfill protection tested", ref: API Std 2350, criticality: critical}
+      - {id: PRC-TK-03, fr: "Procédure d'entrée en bac appliquée (dégazage, test gaz)", en: "Tank entry procedure applied (degassing, gas test)", ref: API RP 2016, criticality: critical}
+  - id: emissions
+    title: {fr: Rejets et émissions, en: Discharges and emissions}
+    items:
+      - {id: PRC-EM-01, fr: "Volumes torchés / ventilés enregistrés, veilleuse allumée", en: "Flared / vented volumes recorded, pilot lit", ref: World Bank GGFR / IFC EHS, criticality: major}
+      - {id: PRC-EM-02, fr: "Émissions atmosphériques dans les limites du permis", en: "Air emissions within permit limits", ref: ISO 14001 9.1, criticality: major}
+      - {id: PRC-EM-03, fr: "Teneur en hydrocarbures des eaux de production conforme", en: "Produced water oil-in-water within limits", ref: IFC EHS Onshore / Offshore O&G, criticality: major}
+      - {id: PRC-EM-04, fr: "Stockage des produits chimiques séparé et étiqueté", en: "Chemicals stored segregated and labelled", ref: GHS, criticality: minor}
+      - {id: PRC-EM-05, fr: "Contrôles de radioactivité naturelle (NORM) réalisés", en: "NORM surveys carried out", ref: IOGP Report 412, criticality: major}

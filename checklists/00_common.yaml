@@ -1,0 +1,246 @@
+# Sections included in every inspection, whatever the production stage.
+# Criticality: critical | major | minor
+id: common
+order: 0
+common: true
+name:
+  fr: Contrôles communs (toutes phases)
+  en: Common checks (all stages)
+sections:
+  - id: general
+    title:
+      fr: Contrôle général de la sécurité
+      en: General safety
+    items:
+      - id: GEN-01
+        fr: Port des EPI (casque, gants, lunettes, chaussures, etc.)
+        en: PPE worn (hard hat, gloves, glasses, safety shoes, etc.)
+        ref: ISO 45001 8.1.2
+        criticality: major
+      - id: GEN-02
+        fr: Signalisation de sécurité visible et lisible
+        en: Safety signage visible and legible
+        ref: ISO 7010
+        criticality: minor
+      - id: GEN-03
+        fr: Extincteurs accessibles et vérifiés
+        en: Fire extinguishers accessible and inspected
+        ref: NFPA 10
+        criticality: major
+      - id: GEN-04
+        fr: Issues de secours dégagées
+        en: Emergency exits clear
+        ref: OSHA 1910.37
+        criticality: critical
+      - id: GEN-05
+        fr: Présence de plans d'évacuation
+        en: Evacuation plans displayed
+        ref: ISO 45001 8.2
+        criticality: minor
+
+  - id: fire
+    title:
+      fr: Prévention des risques incendie
+      en: Fire prevention
+    items:
+      - id: FIR-01
+        fr: Stockage sécurisé des produits inflammables
+        en: Flammable products stored safely
+        ref: NFPA 30
+        criticality: major
+      - id: FIR-02
+        fr: Systèmes de détection incendie et gaz fonctionnels
+        en: Fire and gas detection systems working
+        ref: IEC 61511 / NFPA 72
+        criticality: critical
+      - id: FIR-03
+        fr: Exercices d'évacuation réalisés régulièrement
+        en: Evacuation drills held regularly
+        ref: ISO 45001 8.2
+        criticality: major
+
+  - id: equipment
+    title:
+      fr: Contrôle des équipements
+      en: Equipment
+    items:
+      - id: EQP-01
+        fr: Vérification périodique des équipements sous pression
+        en: Pressure equipment periodically inspected
+        ref: API 510 / API 570
+        criticality: critical
+      - id: EQP-02
+        fr: Maintenance préventive à jour
+        en: Preventive maintenance up to date
+        ref: ISO 55001
+        criticality: major
+      - id: EQP-03
+        fr: Absence de fuites (huile, gaz, etc.)
+        en: No leaks (oil, gas, etc.)
+        ref: API RP 754
+        criticality: critical
+
+  - id: environment
+    title:
+      fr: Environnement
+      en: Environment
+    items:
+      - id: ENV-01
+        fr: Gestion des déchets (tri, stockage, élimination)
+        en: Waste management (sorting, storage, disposal)
+        ref: ISO 14001 8.1
+        criticality: major
+      - id: ENV-02
+        fr: Absence de pollution visible (sol, eau, air)
+        en: No visible pollution (soil, water, air)
+        ref: ISO 14001 / IFC EHS
+        criticality: major
+      - id: ENV-03
+        fr: Bruit dans les limites autorisées
+        en: Noise within permitted limits
+        ref: IFC EHS General 1.7
+        criticality: minor
+      - id: ENV-04
+        fr: Kit anti-pollution disponible et complet
+        en: Spill kit available and complete
+        ref: IPIECA / IOGP oil spill response
+        criticality: major
+
+  - id: behaviour
+    title:
+      fr: Comportement du personnel
+      en: Workforce behaviour
+    items:
+      - id: BEH-01
+        fr: Respect des consignes de sécurité
+        en: Safety rules followed
+        ref: ISO 45001 5.4
+        criticality: major
+      - id: BEH-02
+        fr: Présence aux briefings sécurité (toolbox talk)
+        en: Attendance at safety briefings (toolbox talk)
+        ref: ISO 45001 7.4
+        criticality: minor
+      - id: BEH-03
+        fr: Signalement des incidents / presqu'accidents
+        en: Incidents and near misses reported
+        ref: ISO 45001 10.2
+        criticality: major
+      - id: BEH-04
+        fr: Droit d'arrêt de travail (Stop Work Authority) connu de tous
+        en: Stop Work Authority known by all workers
+        ref: IOGP Report 459
+        criticality: critical
+
+  - id: training
+    title:
+      fr: Formation et compétences
+      en: Training and competence
+    items:
+      - id: TRN-01
+        fr: Formation HSE initiale pour tout nouveau personnel
+        en: HSE induction for all new personnel
+        ref: ISO 45001 7.2
+        criticality: major
+      - id: TRN-02
+        fr: Formations périodiques (incendie, premiers secours, etc.) à jour
+        en: Refresher training (fire, first aid, etc.) up to date
+        ref: ISO 45001 7.2
+        criticality: major
+      - id: TRN-03
+        fr: Registre des formations disponible et à jour
+        en: Training register available and up to date
+        ref: ISO 45001 7.5
+        criticality: minor
+      - id: TRN-04
+        fr: Évaluation des compétences après formation
+        en: Competence assessed after training
+        ref: IOGP Report 423
+        criticality: minor
+      - id: TRN-05
+        fr: Sensibilisation aux procédures d'urgence
+        en: Emergency procedures awareness
+        ref: ISO 45001 8.2
+        criticality: major
+
+  - id: life_saving_rules
+    title:
+      fr: Règles d'or IOGP (Life-Saving Rules)
+      en: IOGP Life-Saving Rules
+    items:
+      - id: LSR-01
+        fr: Aucun dispositif de sécurité contourné sans autorisation
+        en: No safety control bypassed without authorisation
+        ref: IOGP Report 459 - Bypassing safety controls
+        criticality: critical
+      - id: LSR-02
+        fr: Entrée en espace confiné uniquement avec permis et test gaz
+        en: Confined space entry only with permit and gas test
+        ref: IOGP Report 459 - Confined space
+        criticality: critical
+      - id: LSR-03
+        fr: Conduite sûre (ceinture, pas de téléphone, vitesse respectée)
+        en: Safe driving (seat belt, no phone, speed limits)
+        ref: IOGP Report 459 - Driving
+        criticality: critical
+      - id: LSR-04
+        fr: Isolation des énergies vérifiée avant intervention (consignation)
+        en: Energy isolation verified before work (LOTO)
+        ref: IOGP Report 459 - Energy isolation
+        criticality: critical
+      - id: LSR-05
+        fr: Travaux par point chaud contrôlés (permis, test gaz)
+        en: Hot work controlled (permit, gas test)
+        ref: IOGP Report 459 - Hot work
+        criticality: critical
+      - id: LSR-06
+        fr: Personne dans la ligne de tir (charges suspendues, énergie stockée)
+        en: Nobody in the line of fire (suspended loads, stored energy)
+        ref: IOGP Report 459 - Line of fire
+        criticality: critical
+      - id: LSR-07
+        fr: Levages mécaniques planifiés et contrôlés
+        en: Mechanical lifts planned and controlled
+        ref: IOGP Report 459 - Safe mechanical lifting
+        criticality: critical
+      - id: LSR-08
+        fr: Travail en hauteur avec protection antichute
+        en: Work at height with fall protection
+        ref: IOGP Report 459 - Work at height
+        criticality: critical
+      - id: LSR-09
+        fr: Permis de travail valide quand requis
+        en: Valid work permit when required
+        ref: IOGP Report 459 - Work authorisation
+        criticality: critical
+
+  - id: risk_emergency_health
+    title:
+      fr: Analyse de risques, urgence et santé
+      en: Risk assessment, emergency and health
+    items:
+      - id: REH-01
+        fr: Analyse de risques / JSA réalisée avant la tâche
+        en: Risk assessment / JSA done before the task
+        ref: ISO 31000 / ISO 45001 6.1
+        criticality: major
+      - id: REH-02
+        fr: Plan d'intervention d'urgence à jour et exercé (rassemblement, comptage)
+        en: Emergency response plan current and drilled (muster, headcount)
+        ref: ISO 45001 8.2
+        criticality: critical
+      - id: REH-03
+        fr: Moyens médicaux et évacuation sanitaire (MEDEVAC) disponibles
+        en: Medical support and MEDEVAC available
+        ref: IOGP Report 343
+        criticality: major
+      - id: REH-04
+        fr: Exposition professionnelle surveillée (bruit, benzène, chaleur)
+        en: Occupational exposure monitored (noise, benzene, heat stress)
+        ref: IOGP Report 343 / OSHA 1910.1028
+        criticality: major
+      - id: REH-05
+        fr: Aptitude au travail, politique alcool et drogues appliquée
+        en: Fitness for work, drugs and alcohol policy applied
+        ref: IOGP Report 445
+        criticality: major
