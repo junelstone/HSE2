@@ -1,0 +1,26 @@
+id: production
+order: 4
+name:
+  fr: Exploitation / production
+  en: Production operations
+sections:
+  - id: barriers
+    title: {fr: Barrières de sécurité procédé, en: Process safety barriers}
+    items:
+      - {id: PRD-PS-01, fr: "Arrêt d'urgence (ESD) testé selon le planning", en: "Emergency shutdown (ESD) tested as scheduled", ref: API RP 14C / IEC 61511, criticality: critical}
+      - {id: PRD-PS-02, fr: "Soupapes de sécurité (PSV) dans leur date de validité", en: "Pressure safety valves (PSV) within test date", ref: API RP 576, criticality: critical}
+      - {id: PRD-PS-03, fr: "Système feu et gaz opérationnel, aucun défaut non traité", en: "Fire and gas system healthy, no unaddressed faults", ref: IEC 61511, criticality: critical}
+      - {id: PRD-PS-04, fr: "Inhibitions / by-pass de sécurité enregistrés et approuvés", en: "Safety system inhibits / bypasses logged and approved", ref: OSHA 1910.119 / IOGP Report 459, criticality: critical}
+  - id: psm
+    title: {fr: Gestion de la sécurité des procédés, en: Process safety management}
+    items:
+      - {id: PRD-PM-01, fr: "Gestion des modifications (MOC) appliquée à tout changement", en: "Management of change (MOC) applied to every change", ref: OSHA 1910.119(l) / API RP 75, criticality: critical}
+      - {id: PRD-PM-02, fr: "Procédures d'exploitation à jour et disponibles en salle de contrôle", en: "Operating procedures current and available in control room", ref: OSHA 1910.119(f), criticality: major}
+      - {id: PRD-PM-03, fr: "Cahier de relève de quart renseigné", en: "Shift handover log completed", ref: IOGP Report 510, criticality: major}
+      - {id: PRD-PM-04, fr: "Pertes de confinement Tier 1/2 suivies et analysées", en: "Tier 1/2 loss of containment events tracked and investigated", ref: API RP 754 / IOGP Report 456, criticality: major}
+  - id: permits
+    title: {fr: Permis de travail, en: Permit to work}
+    items:
+      - {id: PRD-PT-01, fr: "Permis de travail par point chaud avec test gaz continu", en: "Hot work permit with continuous gas test", ref: API RP 2009 / OSHA 1910.252, criticality: critical}
+      - {id: PRD-PT-02, fr: "Consignation (LOTO) vérifiée et registre à jour", en: "Energy isolation (LOTO) verified and register current", ref: OSHA 1910.147, criticality: critical}
+      - {id: PRD-PT-03, fr: "Permis d'entrée en espace confiné avec surveillant et plan de sauvetage", en: "Confined space permit with standby person and rescue plan", ref: OSHA 1910.146, criticality: critical}

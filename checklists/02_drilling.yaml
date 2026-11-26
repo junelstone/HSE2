@@ -1,0 +1,34 @@
+id: drilling
+order: 2
+name:
+  fr: Forage et construction des puits
+  en: Drilling and well construction
+sections:
+  - id: well_control
+    title: {fr: Contrôle des puits, en: Well control}
+    items:
+      - {id: DRL-WC-01, fr: "Tests de fonctionnement et de pression du BOP enregistrés et à jour", en: "BOP function and pressure tests recorded and current", ref: API Std 53, criticality: critical}
+      - {id: DRL-WC-02, fr: "Accumulateur (Koomey) vérifié, pression et temps de fermeture conformes", en: "Accumulator checked, pressure and closing time compliant", ref: API Std 53, criticality: critical}
+      - {id: DRL-WC-03, fr: "Exercice de venue (kick drill) réalisé cette rotation", en: "Kick drill held this hitch", ref: IOGP Report 476, criticality: critical}
+      - {id: DRL-WC-04, fr: "Certificats de contrôle des puits (IWCF / IADC WellSharp) valides", en: "Well control certificates (IWCF / IADC WellSharp) valid", ref: IOGP Report 476, criticality: critical}
+      - {id: DRL-WC-05, fr: "Feuille de neutralisation (kill sheet) à jour et affichée", en: "Kill sheet up to date and posted", ref: API RP 59, criticality: major}
+  - id: h2s
+    title: {fr: H2S et gaz, en: H2S and gas}
+    items:
+      - {id: DRL-H2S-01, fr: "Détecteurs H2S fixes et portatifs étalonnés", en: "Fixed and personal H2S detectors calibrated", ref: API RP 49, criticality: critical}
+      - {id: DRL-H2S-02, fr: "Appareils respiratoires isolants disponibles et contrôlés", en: "Breathing apparatus available and inspected", ref: API RP 49, criticality: critical}
+      - {id: DRL-H2S-03, fr: "Manches à air et points de rassemblement identifiés", en: "Wind socks and muster points identified", ref: API RP 49, criticality: major}
+      - {id: DRL-H2S-04, fr: "Détection gaz sur les bacs à boue fonctionnelle", en: "Mud pit gas detection working", ref: API RP 54, criticality: major}
+  - id: rig_floor
+    title: {fr: Plancher de forage et mât, en: Rig floor and derrick}
+    items:
+      - {id: DRL-RF-01, fr: "Inspection anti-chute d'objets (DROPS) réalisée", en: "Dropped objects (DROPS) survey completed", ref: DROPS Recommended Practice, criticality: critical}
+      - {id: DRL-RF-02, fr: "Travail en hauteur dans le mât avec harnais et ligne de vie", en: "Derrick work at height with harness and lifeline", ref: API RP 54, criticality: critical}
+      - {id: DRL-RF-03, fr: "Protections des équipements rotatifs en place", en: "Rotating equipment guards in place", ref: API RP 54, criticality: major}
+      - {id: DRL-RF-04, fr: "Manutention des tiges sécurisée (zones rouges respectées)", en: "Pipe handling safe (red zones respected)", ref: IADC HSE Case Guidelines, criticality: critical}
+  - id: fluids
+    title: {fr: Boues, produits et coordination, en: Fluids, chemicals and coordination}
+    items:
+      - {id: DRL-FL-01, fr: "Fiches de données de sécurité (FDS) des produits disponibles", en: "Safety data sheets (SDS) for chemicals available", ref: GHS / OSHA 1910.1200, criticality: major}
+      - {id: DRL-FL-02, fr: "Déblais et fluides de forage traités et éliminés selon le permis", en: "Cuttings and drilling fluids treated and disposed of per permit", ref: IFC EHS Onshore O&G, criticality: major}
+      - {id: DRL-FL-03, fr: "Opérations simultanées (SIMOPS) identifiées et gérées", en: "Simultaneous operations (SIMOPS) identified and managed", ref: IOGP Report 423, criticality: major}

@@ -1,0 +1,22 @@
+id: decommissioning
+order: 8
+name:
+  fr: Démantèlement et abandon
+  en: Decommissioning and abandonment
+sections:
+  - id: wells
+    title: {fr: Abandon des puits, en: Well abandonment}
+    items:
+      - {id: DEC-WL-01, fr: "Bouchons permanents posés avec barrières vérifiées (test)", en: "Permanent plugs set with verified barriers (tested)", ref: IOGP Report 476 / Oil & Gas UK WI&A guidelines, criticality: critical}
+      - {id: DEC-WL-02, fr: "Têtes de puits coupées et position enregistrée", en: "Wellheads cut and location recorded", ref: API RP 65-3, criticality: major}
+  - id: dismantling
+    title: {fr: Démontage, en: Dismantling}
+    items:
+      - {id: DEC-DM-01, fr: "Installations nettoyées et dégazées avant démontage, certificats disponibles", en: "Plant cleaned and gas-freed before dismantling, certificates available", ref: API RP 2016, criticality: critical}
+      - {id: DEC-DM-02, fr: "Inventaire des matières dangereuses (amiante, NORM, mercure)", en: "Hazardous materials survey (asbestos, NORM, mercury)", ref: IOGP Report 412, criticality: major}
+      - {id: DEC-DM-03, fr: "Déchets suivis jusqu'à une filière agréée (bordereaux)", en: "Waste tracked to licensed disposal (consignment notes)", ref: ISO 14001 / Basel Convention, criticality: major}
+  - id: restoration
+    title: {fr: Réhabilitation du site, en: Site restoration}
+    items:
+      - {id: DEC-RS-01, fr: "Échantillonnage sols et eaux souterraines réalisé", en: "Soil and groundwater sampling done", ref: IFC EHS / ISO 18400, criticality: major}
+      - {id: DEC-RS-02, fr: "Plan de réhabilitation et de suivi post-fermeture approuvé", en: "Restoration and post-closure monitoring plan approved", ref: ISO 14001 / IFC PS 1, criticality: major}

@@ -1,0 +1,25 @@
+id: transport_pipelines
+order: 6
+name:
+  fr: Transport et pipelines
+  en: Transport and pipelines
+sections:
+  - id: integrity
+    title: {fr: Intégrité des pipelines, en: Pipeline integrity}
+    items:
+      - {id: PIP-IN-01, fr: "Plan de ramonage (pigging) et d'inspection respecté", en: "Pigging and inspection plan followed", ref: API 1160 / ASME B31.4, criticality: major}
+      - {id: PIP-IN-02, fr: "Mesures de protection cathodique dans les critères", en: "Cathodic protection readings within criteria", ref: NACE SP0169 / ISO 15589-1, criticality: major}
+      - {id: PIP-IN-03, fr: "Patrouilles de l'emprise réalisées, aucune intrusion tierce", en: "Right-of-way patrols done, no third-party interference", ref: API RP 1173, criticality: major}
+      - {id: PIP-IN-04, fr: "Système de détection de fuites opérationnel", en: "Leak detection system operational", ref: API RP 1130 / API RP 1175, criticality: critical}
+  - id: spill
+    title: {fr: Réponse aux déversements, en: Spill response}
+    items:
+      - {id: PIP-SP-01, fr: "Plan d'urgence antipollution (Tier 1/2/3) à jour", en: "Oil spill contingency plan (Tier 1/2/3) current", ref: IPIECA-IOGP Good Practice, criticality: critical}
+      - {id: PIP-SP-02, fr: "Information des communautés riveraines réalisée", en: "Communities along the route informed", ref: API RP 1162, criticality: minor}
+  - id: loading
+    title: {fr: Chargement routier et maritime, en: Road and marine loading}
+    items:
+      - {id: PIP-LD-01, fr: "Mise à la terre / liaison équipotentielle avant chargement", en: "Grounding and bonding before loading", ref: API RP 2003, criticality: critical}
+      - {id: PIP-LD-02, fr: "Bras et flexibles de chargement inspectés", en: "Loading arms and hoses inspected", ref: OCIMF / API RP 1004, criticality: major}
+      - {id: PIP-LD-03, fr: "Liste de contrôle navire-terre complétée (terminal maritime)", en: "Ship/shore safety checklist completed (marine terminal)", ref: ISGOTT, criticality: critical}
+      - {id: PIP-LD-04, fr: "Plans de déplacement des camions-citernes approuvés", en: "Tanker truck journey plans approved", ref: IOGP Report 365, criticality: major}
