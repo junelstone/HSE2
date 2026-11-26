@@ -19,7 +19,16 @@ API, ISO 45001 / 14001, OSHA PSM and IFC EHS references.
 - **PDF report** with summary, detailed checklist, action plan, photos and signatures.
 - **History**: every inspection is saved (SQLite) with its PDF. Open corrective
   actions are listed with overdue ones first, and can be closed.
-- French and English interface and checklists.
+- French and English interface and checklists, with a FR / EN switch next to the title.
+- Each section header shows its progress and score; a button marks the rest of a section "Conforme".
+- A non-conformity cannot be saved without a corrective action and an owner. An empty due date
+  is set from the priority: 7 days (high), 30 (medium) or 90 (low).
+- An optional photo can be added to any item.
+- The inspection in progress is saved as you go, so a page refresh or a lost signal does not lose it
+  (the page address carries the draft number).
+- Sites and installations used before can be picked from a list.
+- Closing an action records who closed it, when, and a closing comment.
+- **Excel export** of inspections, every answer and the open actions.
 
 ## Run it
 
@@ -33,6 +42,10 @@ everything and starts the app.
 
 Inspections are stored in `data/inspections.db` (not committed). Set
 `HSE_DB_PATH` to use another location.
+
+> **Streamlit Community Cloud:** the app's disk is reset when it restarts or is
+> redeployed, so the SQLite history does not last there. Download each PDF (or the
+> Excel export) until the history is moved to a hosted database.
 
 ## Edit the checklists
 
@@ -73,7 +86,9 @@ streamlit_app.py       Streamlit interface (main file for Streamlit Cloud)
 hse_app/checklists.py  loads and validates the YAML checklists
 hse_app/scoring.py     compliance score and critical findings
 hse_app/pdf_report.py  PDF report
-hse_app/storage.py     SQLite history and corrective actions
+hse_app/storage.py     SQLite history, corrective actions and drafts
+hse_app/actions.py     rules for corrective actions (required fields, default due dates)
+hse_app/export.py      Excel export
 hse_app/i18n.py        French / English interface text
 checklists/            checklist content, one file per stage
 tests/                 pytest suite

@@ -6,6 +6,7 @@ the ``HSE_DB_PATH`` environment variable.
 
 from __future__ import annotations
 
+import json
 import os
 import sqlite3
 from contextlib import contextmanager
@@ -46,9 +47,27 @@ CREATE TABLE IF NOT EXISTS results (
     due_date TEXT,
     priority TEXT,
     action_closed INTEGER NOT NULL DEFAULT 0,
-    closed_at TEXT
+    closed_at TEXT,
+    closed_by TEXT,
+    closing_note TEXT
+);
+CREATE TABLE IF NOT EXISTS drafts (
+    id TEXT PRIMARY KEY,
+    updated_at TEXT NOT NULL,
+    data TEXT NOT NULL
 );
 """
+
+# Columns added after the first release: added to older databases on connect.
+MIGRATIONS = {"results": {"closed_by": "TEXT", "closing_note": "TEXT"}}
+
+
+def _migrate(conn) -> None:
+    for table, columns in MIGRATIONS.items():
+        existing = {r[1] for r in conn.execute(f"PRAGMA table_info({table})")}
+        for name, kind in columns.items():
+            if name not in existing:
+                conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {kind}")
 
 
 def db_path() -> Path:
@@ -64,6 +83,7 @@ def connect(path: Path | str | None = None):
     conn.execute("PRAGMA foreign_keys = ON")
     try:
         conn.executescript(SCHEMA)
+        _migrate(conn)
         yield conn
         conn.commit()
     finally:
@@ -129,7 +149,63 @@ def open_actions(path=None, today: date | None = None) -> list:
     return [dict(r) for r in rows]
 
 
-def close_action(result_id: int, path=None) -> None:
+def close_action(result_id: int, path=None, closed_by: str = "", note: str = "") -> None:
+    """Close a corrective action, recording who closed it and how."""
     with connect(path) as conn:
-        conn.execute("UPDATE results SET action_closed = 1, closed_at = ? WHERE id = ?",
-                     (datetime.now().isoformat(timespec="seconds"), result_id))
+        conn.execute("UPDATE results SET action_closed = 1, closed_at = ?, closed_by = ?, closing_note = ?"
+                     " WHERE id = ?",
+                     (datetime.now().isoformat(timespec="seconds"), closed_by, note, result_id))
+
+
+def closed_actions(path=None, limit: int = 50) -> list:
+    with connect(path) as conn:
+        rows = conn.execute(
+            "SELECT r.inspection_id, i.site, r.item_id, r.item_text, r.action, r.owner, r.closed_at,"
+            " r.closed_by, r.closing_note"
+            " FROM results r JOIN inspections i ON i.id = r.inspection_id"
+            " WHERE r.action_closed = 1 ORDER BY r.closed_at DESC LIMIT ?", (limit,)).fetchall()
+    return [dict(r) for r in rows]
+
+
+def all_results(path=None) -> list:
+    """Every checklist answer with its inspection header, for the Excel export."""
+    with connect(path) as conn:
+        rows = conn.execute(
+            "SELECT i.id AS inspection_id, i.inspection_date, i.site, i.installation, i.inspectors,"
+            " i.stage_id, r.section_id, r.item_id, r.item_text, r.criticality, r.status, r.observation,"
+            " r.action, r.owner, r.due_date, r.priority, r.action_closed, r.closed_at, r.closed_by,"
+            " r.closing_note"
+            " FROM results r JOIN inspections i ON i.id = r.inspection_id"
+            " ORDER BY i.id DESC, r.id").fetchall()
+    return [dict(r) for r in rows]
+
+
+def known_sites(path=None) -> tuple[list, list]:
+    """Sites and installations used before, most recent first, for quick picking."""
+    with connect(path) as conn:
+        sites = [r[0] for r in conn.execute(
+            "SELECT site FROM inspections WHERE site <> '' GROUP BY site ORDER BY MAX(id) DESC")]
+        installs = [r[0] for r in conn.execute(
+            "SELECT installation FROM inspections WHERE installation <> ''"
+            " GROUP BY installation ORDER BY MAX(id) DESC")]
+    return sites, installs
+
+
+# Drafts: an inspection in progress, kept so a refresh or lost signal does not lose it.
+
+def save_draft(draft_id: str, data: dict, path=None) -> None:
+    with connect(path) as conn:
+        conn.execute("INSERT INTO drafts (id, updated_at, data) VALUES (?,?,?)"
+                     " ON CONFLICT(id) DO UPDATE SET updated_at = excluded.updated_at, data = excluded.data",
+                     (draft_id, datetime.now().isoformat(timespec="seconds"), json.dumps(data)))
+
+
+def load_draft(draft_id: str, path=None) -> dict | None:
+    with connect(path) as conn:
+        row = conn.execute("SELECT data FROM drafts WHERE id = ?", (draft_id,)).fetchone()
+    return json.loads(row["data"]) if row else None
+
+
+def delete_draft(draft_id: str, path=None) -> None:
+    with connect(path) as conn:
+        conn.execute("DELETE FROM drafts WHERE id = ?", (draft_id,))
