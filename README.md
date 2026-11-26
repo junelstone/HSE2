@@ -25,7 +25,7 @@ API, ISO 45001 / 14001, OSHA PSM and IFC EHS references.
 
 ```bash
 pip install -r requirements.txt
-streamlit run app.py
+streamlit run streamlit_app.py
 ```
 
 Or open the repository in GitHub Codespaces: the dev container installs
@@ -69,7 +69,7 @@ every pull request.
 ## Project layout
 
 ```
-app.py                 Streamlit interface
+streamlit_app.py       Streamlit interface (main file for Streamlit Cloud)
 hse_app/checklists.py  loads and validates the YAML checklists
 hse_app/scoring.py     compliance score and critical findings
 hse_app/pdf_report.py  PDF report

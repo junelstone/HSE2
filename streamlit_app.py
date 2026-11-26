@@ -1,6 +1,6 @@
 """HSE inspection app for the stages of oil and gas production.
 
-Run with:  streamlit run app.py
+Run with:  streamlit run streamlit_app.py
 """
 
 from __future__ import annotations
